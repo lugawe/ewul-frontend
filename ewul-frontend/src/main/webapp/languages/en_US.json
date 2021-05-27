@@ -1,0 +1,16 @@
+{
+  "basic": {
+    "yes": "yes",
+    "no": "no",
+    "loading": "Loading..."
+  },
+  "pages": {
+    "auth": {
+      "login": {
+        "username": "Username",
+        "password": "Password",
+        "login": "Login"
+      }
+    }
+  }
+}
