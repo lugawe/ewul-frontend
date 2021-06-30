@@ -11,6 +11,17 @@
         "password": "Password",
         "login": "Login"
       }
+    },
+    "users": {
+      "index": {
+        "search": "Search",
+        "name": "Name",
+        "first_name": "First name",
+        "last_name": "Last name",
+        "email": "E-Mail",
+        "last_access": "Last access",
+        "actions": "Actions"
+      }
     }
   }
 }
