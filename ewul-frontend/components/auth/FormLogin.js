@@ -6,7 +6,7 @@ export default class FormLogin extends React.Component {
   render() {
     return (
       <ThemeProvider theme={theme}>
-        <UI.Container component='main' maxWidth='xs'>
+        <UI.Container component='div' maxWidth='xs'>
           <UI.CssBaseline />
           <UI.Box
             sx={{
