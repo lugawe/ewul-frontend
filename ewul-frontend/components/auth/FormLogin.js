@@ -1,6 +1,6 @@
 import React from 'react';
-import * as UI from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import * as UI from '@mui/material';
 
 export default class FormLogin extends React.Component {
   render() {
