@@ -9,29 +9,50 @@ export default class FormLogin extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      loading: false,
+      error: null,
       email: '',
       password: ''
     };
   }
 
-  emailChange = (e) => {
+  changeLoading = (val) => {
+    this.setState({ loading: Boolean(val) });
+  };
+
+  changeError = (val) => {
+    this.setState({ error: val });
+  };
+
+  changeEmail = (e) => {
     this.setState({ email: e.target.value });
   };
 
-  passwordChange = (e) => {
+  changePassword = (e) => {
     this.setState({ password: e.target.value });
   };
 
   login = async (e) => {
     e.preventDefault();
+    this.changeLoading(true);
+    this.changeError(null);
     const email = this.state.email;
     const password = this.state.password;
-    const result = await login(email, password).catch((e) => {
-      // TODO
-    });
+    const result = await login(email, password)
+      .catch((e) => {
+        const val = e.response.status === 401 ? 'Invalid credentials' : 'Unknown error';
+        this.changeError(val);
+      })
+      .finally(() => {
+        this.changeLoading(false);
+      });
+    return result;
   };
 
   render() {
+    const loading = this.state.loading;
+    const error = this.state.error;
+
     return (
       <ThemeProvider theme={theme}>
         <UI.Container component='div' maxWidth='xs'>
@@ -49,8 +70,9 @@ export default class FormLogin extends React.Component {
             </UI.Typography>
             <UI.Box component='form' onSubmit={this.login}>
               <UI.TextField
-                onChange={this.emailChange}
+                onChange={this.changeEmail}
                 value={this.state.email}
+                disabled={loading}
                 margin='normal'
                 required
                 fullWidth
@@ -58,30 +80,42 @@ export default class FormLogin extends React.Component {
                 type='email'
               />
               <UI.TextField
-                onChange={this.passwordChange}
+                onChange={this.changePassword}
                 value={this.state.password}
+                disabled={loading}
                 margin='normal'
                 required
                 fullWidth
                 label='Password'
                 type='password'
               />
-              <UI.FormControlLabel control={<UI.Checkbox />} label='Remember me' />
-              <UI.Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}>
+              <UI.FormControlLabel control={<UI.Checkbox disabled={loading} />} label='Remember me' />
+              <UI.Button type='submit' fullWidth variant='contained' disabled={loading} sx={{ mt: 2, mb: 2 }}>
                 <span>Sign In</span>
               </UI.Button>
-              <UI.Grid container>
-                <UI.Grid item xs>
-                  <UI.Link>
-                    <span>Forgot password?</span>
-                  </UI.Link>
+              {error ? (
+                <UI.Alert severity='error' sx={{ mb: 2 }}>
+                  {error}
+                </UI.Alert>
+              ) : (
+                <></>
+              )}
+              {!loading ? (
+                <UI.Grid container>
+                  <UI.Grid item xs>
+                    <UI.Link>
+                      <span>Forgot password?</span>
+                    </UI.Link>
+                  </UI.Grid>
+                  <UI.Grid item>
+                    <UI.Link>
+                      <span>Sign Up</span>
+                    </UI.Link>
+                  </UI.Grid>
                 </UI.Grid>
-                <UI.Grid item>
-                  <UI.Link>
-                    <span>Sign Up</span>
-                  </UI.Link>
-                </UI.Grid>
-              </UI.Grid>
+              ) : (
+                <></>
+              )}
             </UI.Box>
           </UI.Box>
         </UI.Container>
