@@ -52,6 +52,8 @@ export default class FormLogin extends React.Component {
   render() {
     const loading = this.state.loading;
     const error = this.state.error;
+    const email = this.state.email;
+    const password = this.state.password;
 
     return (
       <ThemeProvider theme={theme}>
@@ -71,7 +73,7 @@ export default class FormLogin extends React.Component {
             <UI.Box component='form' onSubmit={this.login}>
               <UI.TextField
                 onChange={this.changeEmail}
-                value={this.state.email}
+                value={email}
                 disabled={loading}
                 margin='normal'
                 required
@@ -81,7 +83,7 @@ export default class FormLogin extends React.Component {
               />
               <UI.TextField
                 onChange={this.changePassword}
-                value={this.state.password}
+                value={password}
                 disabled={loading}
                 margin='normal'
                 required
