@@ -40,7 +40,7 @@ export default class FormLogin extends React.Component {
     const password = this.state.password;
     const result = await login(email, password)
       .catch((e) => {
-        const val = e.response.status === 401 ? 'Invalid credentials' : 'Unknown error';
+        const val = e.response?.status === 401 ? 'Invalid credentials' : 'Unknown error';
         this.changeError(val);
       })
       .finally(() => {
