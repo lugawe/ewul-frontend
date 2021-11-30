@@ -91,7 +91,6 @@ export default class FormLogin extends React.Component {
                 label='Password'
                 type='password'
               />
-              <UI.FormControlLabel control={<UI.Checkbox disabled={loading} />} label='Remember me' />
               <UI.Button type='submit' fullWidth variant='contained' disabled={loading} sx={{ mt: 2, mb: 2 }}>
                 <span>Sign In</span>
               </UI.Button>
